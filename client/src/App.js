@@ -11,19 +11,23 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "./context/AuthContext";
 import Messenger from "./pages/messenger/Messenger";
+import {useAuth0} from '@auth0/auth0-react';
+
 
 function App() {
-  const { user } = useContext(AuthContext);
+  // const { user } = useContext(AuthContext);
+  const { loginWithRedirect, logout, user, isAuthenticated, getAccessTokenSilently} = useAuth0()
+
   return (
     <Router>
       <Switch>
         <Route exact path="/">
-          {user ? <Home /> : <Register />}
+          {user ? <Home /> : <Login />}
         </Route>
         <Route path="/login">{user ? <Redirect to="/" /> : <Login />}</Route>
-        <Route path="/register">
+        {/* <Route path="/register">
           {user ? <Redirect to="/" /> : <Register />}
-        </Route>
+        </Route> */}
         <Route path="/messenger">
           {!user ? <Redirect to="/" /> : <Messenger />}
         </Route>

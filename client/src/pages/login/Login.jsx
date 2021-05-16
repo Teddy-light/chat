@@ -3,11 +3,14 @@ import "./login.css";
 import { loginCall } from "../../apiCalls";
 import { AuthContext } from "../../context/AuthContext";
 import { CircularProgress } from "@material-ui/core";
+import { useAuth0 } from "@auth0/auth0-react";
 
 export default function Login() {
   const email = useRef();
   const password = useRef();
   const { isFetching, dispatch } = useContext(AuthContext);
+
+  const {loginWithRedirect} = useAuth0();
 
   const handleClick = (e) => {
     e.preventDefault();
@@ -27,7 +30,7 @@ export default function Login() {
           </span>
         </div>
         <div className="loginRight">
-          <form className="loginBox" onSubmit={handleClick}>
+          {/* <form className="loginBox" onSubmit={handleClick}>
             <input
               placeholder="Email"
               type="email"
@@ -58,7 +61,12 @@ export default function Login() {
                 "Create a New Account"
               )}
             </button>
-          </form>
+          </form> */}
+          <div className="loginBox">
+          <button className="loginButton" onClick={loginWithRedirect}>Log In</button>
+
+          </div>
+
         </div>
       </div>
     </div>

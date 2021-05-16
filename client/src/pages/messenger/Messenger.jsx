@@ -39,9 +39,17 @@ export default function Messenger() {
   useEffect(() => {
     socket.current.emit("addUser", user._id);
     socket.current.on("getUsers", (users) => {
+      console.log('user: ', user);
+      
       setOnlineUsers(
         user.followings.filter((f) => users.some((u) => u.userId === f))
       );
+      
+      // setOnlineUsers(
+      //   user
+      // );
+      console.log('users ', onlineUsers);
+      
     });
   }, [user]);
 
@@ -146,6 +154,7 @@ export default function Messenger() {
         </div>
         <div className="chatOnline">
           <div className="chatOnlineWrapper">
+            {onlineUsers.length}
             <ChatOnline
               onlineUsers={onlineUsers}
               currentId={user._id}
